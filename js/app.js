@@ -8,7 +8,8 @@ var App = Em.Application.create({
 
 App.feed = Em.Object.extend(
 {
-  googleapi: 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=',
+  googleapi: 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=-1&q=',
+  status: 'new',
   url: null,
   name: null,
   count: 0,
@@ -18,15 +19,38 @@ App.feed = Em.Object.extend(
     return this.get('googleapi')+this.get('url')+'&callback=?';
   }).property('googleapi', 'url'),
 
+  loading: Em.computed(function()
+  {
+    return this.get('status') == 'loading';
+  }).property('status'),
+
   load: function()
   {
     var self = this;
-    this.set('name', 'Carregando...');
+    this.set('count', null);
+    this.set('status', 'loading');
     $.getJSON(this.get('jsonurl'), function(data)
     {
-      self.set('name', data.responseData.feed.title);
-      self.set('count', data.responseData.feed.entries.length);
-      self.set('entries', data.responseData.feed.entries);
+      if(data.responseData)
+      {
+        self.set('status', 'ready');
+        self.set('name', data.responseData.feed.title);
+        self.set('count', data.responseData.feed.entries.length);
+        self.set('entries', data.responseData.feed.entries);
+      }
+      else
+      {
+        self.set('status', 'error');
+        window.setTimeout(function()
+        {
+          App.feedsController.removeObject(self)
+        }, 1000);
+
+        //App.feedsController.removeObject(self);
+      }
+    }).error(function()
+    {
+      App.feedsController.removeObject(self);
     });
   }.observes('url'),
 
@@ -60,7 +84,6 @@ App.entriesController = Em.ArrayController.create({
     var self = this;
     this.set('content', []);
 
-    console.log(feed.get('entries'));
     feed.get('entries').forEach(function(item){
       self.pushObject(item);
     })
@@ -68,6 +91,7 @@ App.entriesController = Em.ArrayController.create({
 })
 
 App.FeedView = Em.View.extend({
+  statusBinding: 'feed.status',
   open: function()
   {
     this.get('feed').show();
@@ -81,8 +105,12 @@ App.MainView = Em.View.create({
   entrieslistBinding: 'App.entriesController.content',
   addRSS: function()
   {
-    App.feedsController.addFeed(this.get('url'));
-    this.set('url', '')
+    var url = this.get('url');
+    if(url)
+    {
+      App.feedsController.addFeed(this.get('url'));
+      this.set('url', '')
+    }
   }
 }).append();
 

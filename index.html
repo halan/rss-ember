@@ -18,13 +18,17 @@
   <ul id="feeds">
     {{#each feedslist}}
     {{#view App.FeedView feedBinding="this"}}
-    <li class="feed" {{action "open"}} >
+    <li class="feed" {{action "open"}} {{bindAttr class="status"}} >
+      {{#if feed.loading}}
+        Carregando...
+      {{else}}
       <a href="#"><small>{{feed.url}}</small></a>
       <br/>
       <a href="#">
         {{feed.name}} 
         {{#if feed.count}}- <small>{{feed.count}}</small>{{/if}}
       </a>
+      {{/if}}
      </li>
     {{/view}}
     {{/each}}
