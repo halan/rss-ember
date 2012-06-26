@@ -13,24 +13,19 @@
   <script type="text/x-handlebars" data-template-name="main-view">
   <div id="toolbar">
     {{view Ember.TextField valueBinding="url"}}
-    <button {{action "addRSS"}}>+</button>
+    <button {{action "clickButton"}}>+</button>
   </div>
   <ul id="feeds">
     {{#each feedslist}}
-    {{#view App.FeedView feedBinding="this"}}
-    <li class="feed" {{action "open"}} {{bindAttr class="status"}} >
-      {{#if feed.loading}}
-        Carregando...
-      {{else}}
-      <a href="#"><small>{{feed.url}}</small></a>
-      <br/>
-      <a href="#">
-        {{feed.name}} 
-        {{#if feed.count}}- <small>{{feed.count}}</small>{{/if}}
-      </a>
-      {{/if}}
-     </li>
-    {{/view}}
+      {{#view App.FeedView feedBinding="this" tagName="li" }}
+        {{#if feed.loading}}
+          Carregando...
+        {{else}}
+        <a href="#">
+          {{feed.name}} 
+        </a>
+        {{/if}}
+      {{/view}}
     {{/each}}
   </ul>
   <div id="entries">

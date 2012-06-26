@@ -5,7 +5,6 @@ var App = Em.Application.create({
   }
 });
 
-
 App.feed = Em.Object.extend(
 {
   googleapi: 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=-1&q=',
@@ -41,16 +40,10 @@ App.feed = Em.Object.extend(
       else
       {
         self.set('status', 'error');
-        window.setTimeout(function()
-        {
-          App.feedsController.removeObject(self)
-        }, 1000);
-
-        //App.feedsController.removeObject(self);
       }
     }).error(function()
     {
-      App.feedsController.removeObject(self);
+      self.set('status', 'error');
     });
   }.observes('url'),
 
@@ -92,7 +85,22 @@ App.entriesController = Em.ArrayController.create({
 
 App.FeedView = Em.View.extend({
   statusBinding: 'feed.status',
-  open: function()
+  classNameBindings: ['standClass', 'status'],
+  standClass: 'feed',
+  conectionBroken: function()
+  {
+    var self = this;
+
+    if(self.feed.status == 'error')
+    {
+      self.$().fadeOut('slow', function()
+      {
+        App.feedsController.removeObject(self)
+      });
+    }
+  }.observes('feed.status'),
+
+  click: function()
   {
     this.get('feed').show();
   }
@@ -103,7 +111,7 @@ App.MainView = Em.View.create({
   templateName: 'main-view',
   feedslistBinding: 'App.feedsController.content',
   entrieslistBinding: 'App.entriesController.content',
-  addRSS: function()
+  clickButton: function()
   {
     var url = this.get('url');
     if(url)
