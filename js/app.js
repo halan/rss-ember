@@ -86,3 +86,6 @@ App.MainView = Em.View.create({
   }
 }).append();
 
+Handlebars.registerHelper('raw', function(context, options) {
+  return new Handlebars.SafeString(Ember.getPath(this, context));
+}); 
