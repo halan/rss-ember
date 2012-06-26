@@ -1,0 +1,100 @@
+body
+{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#feeds
+{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, .1);
+  position: absolute;
+  top: 30px;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  overflow-y: auto;
+
+}
+
+#feeds li
+{
+  padding: 1em;
+  background: rgba(0, 0, 0, .3);
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, .7);
+}
+
+#feeds li a
+{
+  font-family: sans-serif;
+  text-decoration: none;
+  color: white;
+  text-shadow: 0 1px 1px black;
+}
+
+#feeds li:hover
+{
+  background: rgba(0, 0, 0, .6)
+}
+
+
+#feeds li:hover a
+{
+  text-shadow: 0 1px 1px black, 0 0 20px white;
+}
+
+
+#entries
+{
+  position: absolute;
+  left: 300px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  -webkit-box-shadow: inset 1px 1px 5px black;
+  overflow-y: scroll;
+}
+
+#entries article
+{
+  padding: 1em;
+  background: rgba(100, 0, 0, .1);
+  margin: 3px;
+}
+
+#toolbar
+{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: 30px;
+  background: rgba(0, 0, 0, .9);
+}
+
+#toolbar input
+{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 40px;
+}
+
+#toolbar button
+{
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+}
+
