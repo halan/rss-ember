@@ -1,7 +1,7 @@
 var App = Em.Application.create({
   ready: function()
   {
-    console.log('started');
+    App.feedsController.addFeed('https://github.com/halan/rss-ember/commits/master.atom');
   }
 });
 
