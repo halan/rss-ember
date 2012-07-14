@@ -1,6 +1,7 @@
-App = Em.Application.create(ready: ->
-  App.feedsController.addFeed "https://github.com/halan/rss-ember/commits/master.atom"
+window.App = Em.Application.create(ready: ->
   App.MainView.append()
+  App.feedsController.addFeed "https://github.com/halan/rss-ember/commits/master.atom"
+
 )
 
 App.feed = Em.Object.extend(
