@@ -1,0 +1,3 @@
+#/usr/bin/env bash
+
+x-www-browser index.html
