@@ -2,6 +2,8 @@ var App = Em.Application.create({
   ready: function()
   {
     App.feedsController.addFeed('https://github.com/halan/rss-ember/commits/master.atom');
+
+    App.MainView.append();
   }
 });
 
@@ -120,7 +122,7 @@ App.MainView = Em.View.create({
       this.set('url', '')
     }
   }
-}).append();
+});
 
 Handlebars.registerHelper('raw', function(context, options) {
   return new Handlebars.SafeString(Ember.getPath(this, context));
