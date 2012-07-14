@@ -1,0 +1,17 @@
+{
+  "author": "Halan Pinheiro <halan.pinheiro@gmail.com>",
+  "name": "rss-ember",
+  "description": "A experiment with ember.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/halan/rss-ember",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/halan/rss-ember.git"
+  },
+  "dependencies": {},
+  "devDependencies": {"coffee-script": ""},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
